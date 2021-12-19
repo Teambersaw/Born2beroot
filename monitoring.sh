@@ -9,7 +9,9 @@ Memory=$(free -m | awk 'NR==2 {print $3}')
 Max_Memory=$(free -m | awk 'NR==2 {print $2}')
 Total=$((100 * $Memory / $Max_Memory))
 
-Disk_Usage=$()
+Disk_Usage=$(df -Bm | grep '^/dev/' | grep -v '/boot$' | awk '{DU += $3} END {print DU}')
+Disk_Total=$(df -Bg | grep '^/dev/' | grep -v '/boot$' | awk '{DT += $2} END {print DT}')
+Disk_Pourcent=$(df -Bm | grep '^/dev/' | grep -v '/boot$' | awk '{DU += $3} {DT += $2} END {printf("%d"), DU/DT*100}')
 
 CPU_Load=$(uptime | awk '{print $10}' | tr -d ,)
 
@@ -32,11 +34,11 @@ echo   "
         #CPU physical : $CPU_physical
         #vCPU : $vCPU
         #Memory Usage: $Memory/${Max_Memory}MB ($Total%)
-        #Disk Usage: $Disk_Usage
+        #Disk Usage: $Disk_Usage/$Disk_Total ($Disk_Pourcent%)
         #CPU load: $CPU_Load%
         #Last boot: $Last_Boot
         #LVM use: $LVM_use
         #Connexions TCP : $Connexions_TCP ESTABLISHED
         #User log: $User_log
         #Network: IP $Ipv4 ($MAC)
-        #Sudo : $Sudo cmd
+        #Sudo : $Sudo cmd "
