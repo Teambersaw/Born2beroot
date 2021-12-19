@@ -13,7 +13,7 @@ Disk_Usage=$(df -Bm | grep '^/dev/' | grep -v '/boot$' | awk '{DU += $3} END {pr
 Disk_Total=$(df -Bg | grep '^/dev/' | grep -v '/boot$' | awk '{DT += $2} END {print DT}')
 Disk_Pourcent=$(df -Bm | grep '^/dev/' | grep -v '/boot$' | awk '{DU += $3} {DT += $2} END {printf("%d"), DU/DT*100}')
 
-CPU_Load=$(uptime | awk '{print $10}' | tr -d ,)
+CPU_Load=$(uptime | awk '{print $8}' | tr -d ,)
 
 Last_Boot=$(who -b | awk '{print$3,$4}')
 
@@ -29,7 +29,7 @@ MAC=$(ip link show | awk 'NR==4 {print $2}')
 
 Sudo=$(journalctl _COMM=sudo | grep COMMAND | wc -l)
 
-echo   "
+wall   "
         #Architecture: $Architecture
         #CPU physical : $CPU_physical
         #vCPU : $vCPU
@@ -41,4 +41,4 @@ echo   "
         #Connexions TCP : $Connexions_TCP ESTABLISHED
         #User log: $User_log
         #Network: IP $Ipv4 ($MAC)
-        #Sudo : $Sudo cmd "
+        #Sudo : $Sudo cmd"
