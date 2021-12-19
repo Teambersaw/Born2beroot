@@ -1,20 +1,35 @@
 #!/bin/sh
+Architecture=$(uname -a)
 
-total=$(free -m | awk 'NR==2 {print $2}')
-totoro=$(free -m | awk 'NR==2 {print $3}')
-toto=$((100 * $totoro / $total))
-tcp=$(who | wc -l)
-pourcent=$(uptime | awk '{print $10}' | tr -d ,)
+CPU_physical=$(cat /proc/cpuinfo | grep 'physical id' | uniq | wc -l)
 
-echo -n "#Architecture: "; uname -a
-echo -n "#CPU physical : "; cat /proc/cpuinfo | grep 'physical id' | uniq | wc -l
-echo -n "#vCPU : "; cat /proc/cpuinfo | grep 'cpu cores' | uniq | awk '{print $4}'
-echo  	"#Memory Usage: $totoro/${total}MB ($toto%)"
-echo    "#Disk Usage: "
-echo    "#CPU load: $pourcent%"
-echo -n "#Last boot: "; who -b | awk '{print$3,$4}'
-echo    "#LVM use: "
-echo -n "#Connexions TCP : "; cat /proc/net/sockstat | awk 'NR==2 {print$3}'
-echo    "#User log: $tcp ESTABLISHED"
-echo -n "#Network: " 
-echo -n "#Sudo : "
+vCPU=$(cat /proc/cpuinfo | grep 'cpu cores' | uniq | awk '{print $4}')
+
+Memory=$(free -m | awk 'NR==2 {print $3}')
+Max_Memory=$(free -m | awk 'NR==2 {print $2}')
+Total=$((100 * $Memory / $Max_Memory))
+
+CPU_Load=$(uptime | awk '{print $10}' | tr -d ,)
+
+Last_Boot=$(who -b | awk '{print$3,$4}')
+
+Connexions_TCP=$(cat /proc/net/sockstat | awk 'NR==2 {print$3}')
+
+User_log=$(who | wc -l)
+
+Network=$(hostname -I)
+
+
+echo   "
+        #Architecture: $Architecture
+        #CPU physical : $CPU_physical
+        #vCPU : $vCPU
+        #Memory Usage: $Memory/${Max_Memory}MB ($Total%)
+        #Disk Usage:
+        #CPU load: $CPU_Load%
+        #Last boot: $Last_Boot
+        #LVM use:
+        #Connexions TCP : $Connexions_TCP ESTABLISHED
+        #User log: $User_log
+        #Network: IP $Network
+        #Sudo :"
