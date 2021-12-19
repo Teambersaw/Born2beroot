@@ -34,7 +34,7 @@ echo   "
         #CPU physical : $CPU_physical
         #vCPU : $vCPU
         #Memory Usage: $Memory/${Max_Memory}MB ($Total%)
-        #Disk Usage: $Disk_Usage/$Disk_Total ($Disk_Pourcent%)
+        #Disk Usage: $Disk_Usage/${Disk_Total}Gb ($Disk_Pourcent%)
         #CPU load: $CPU_Load%
         #Last boot: $Last_Boot
         #LVM use: $LVM_use
