@@ -13,7 +13,7 @@ Disk_Usage=$(df -Bm | grep '^/dev/' | grep -v '/boot$' | awk '{DU += $3} END {pr
 Disk_Total=$(df -Bg | grep '^/dev/' | grep -v '/boot$' | awk '{DT += $2} END {print DT}')
 Disk_Pourcent=$(df -Bm | grep '^/dev/' | grep -v '/boot$' | awk '{DU += $3} {DT += $2} END {printf("%d"), DU/DT*100}')
 
-CPU_Load=$(uptime | awk '{print $8}' | tr -d ,)
+CPU_Load=$(uptime | awk '{print $9}' | tr -d ,)
 
 Last_Boot=$(who -b | awk '{print$3,$4}')
 
