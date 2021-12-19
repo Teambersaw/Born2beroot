@@ -15,11 +15,12 @@ CPU_Load=$(uptime | awk '{print $10}' | tr -d ,)
 
 Last_Boot=$(who -b | awk '{print$3,$4}')
 
-LVM_use=$()
+LVM=$(lsblk | grep 'lvm' | wc -l)
+LVM_use=$(if [ $LVM -eq 0 ]; then echo no; else echo yes; fi)
 
 Connexions_TCP=$(cat /proc/net/sockstat | awk 'NR==2 {print$3}')
 
-User_log=$(who | wc -l)
+User_log=$(users | wc -w)
 
 Ipv4=$(hostname -I)
 MAC=$(ip link show | awk 'NR==4 {print $2}')
