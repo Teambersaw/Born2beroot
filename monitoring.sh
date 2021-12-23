@@ -9,9 +9,9 @@ Memory=$(free -m | awk 'NR==2 {print $3}')
 Max_Memory=$(free -m | awk 'NR==2 {print $2}')
 Total=$((100 * $Memory / $Max_Memory))
 
-Disk_Usage=$(df -Bm | grep '^/dev/' | grep -v '/boot$' | awk '{DU += $3} END {print DU}')
-Disk_Total=$(df -Bg | grep '^/dev/' | grep -v '/boot$' | awk '{DT += $2} END {print DT}')
-Disk_Pourcent=$(df -Bm | grep '^/dev/' | grep -v '/boot$' | awk '{DU += $3} {DT += $2} END {printf("%d"), DU/DT*100}')
+Disk_Usage=$(df -m --total | awk 'NR==10 {print $3}')
+Disk_Total=$(df -h --total | awk 'NR==10 {print $2}')
+Disk_Pourcent=$(df -h --total | awk 'NR==10 {print $5}')
 
 CPU_Load=$(uptime | awk '{print $9}' | tr -d ,)
 
@@ -20,7 +20,7 @@ Last_Boot=$(who -b | awk '{print$3,$4}')
 LVM=$(lsblk | grep 'lvm' | wc -l)
 LVM_use=$(if [ $LVM -eq 0 ]; then echo no; else echo yes; fi)
 
-Connexions_TCP=$(cat /proc/net/sockstat | awk 'NR==2 {print$3}')
+Connexions_TCP=$(cat /proc/net/sockstat | awk 'NR==2 {print$ 3}')
 
 User_log=$(users | wc -w)
 
