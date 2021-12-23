@@ -1,0 +1,69 @@
+VM:
+
+Reboot: sudo reboot
+Turn off: sudo shutdown now
+Utilitaire Script:  sudo apt install net-tools
+Vérifier installation: dpkg -l | <nom>
+Sudo aa-status
+
+UFW:
+
+Installation: sudo apt install ufw
+Actiation: sudo ufw enable
+Status: sudo ufw status
+Utilisation:  
+     Allow un port: sudo ufw allow 4242
+     Delete une règle: sudo ufw delete allow 4242
+     
+SSH:
+
+Installation: sudo apt install openssh-server
+Connexion: ssh <username>@localhost -p 4242
+Status: sudo service ssh status
+File: /etc/ssh/sshd_config
+
+Password Config:
+
+File: /etc/login.defs
+Installation: sudo apt install libpam-pwquality
+File: /etc/pam.d/common-password
+Changement passwd: sudo passwd (for root)
+                   passwd <user>
+Changer de date: chage <user>
+Info date: chage -l <user>
+
+User & Group:
+
+Connecter à User: su <user>
+adduser: sudo adduser <name>
+addgroup: sudo addgroup <name>
+add user to group: sudo adduser <user> <group>
+verifier group: getent group <group>
+verifier user: getent passwd <user>
+
+Sudo
+
+Installation: apt install sudo
+File création: touch /etc/sudoers.d/<name>
+               mkdir /var/log/sudo
+File: /etc/sudoers.d/<name>
+
+Hostname:
+
+Information: hostname
+Commande: sudo hostnamectl set-hostname <nom>
+File: /etc/hosts
+Sudo reboot
+
+Cron:
+
+Utilisation: crontab -u root -e
+Status: sudo service cron status
+Désactiver: sudo service cron stop
+Activer: sudo service cron start
+
+Static Ip
+
+File: /etc/network/interfaces
+Remplacer en Satic + ip de la machine
+Parametre VM 4242 port
