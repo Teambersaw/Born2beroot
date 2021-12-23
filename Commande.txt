@@ -61,6 +61,7 @@ Utilisation: crontab -u root -e
 Status: sudo service cron status
 Désactiver: sudo service cron stop
 Activer: sudo service cron start
+Script Path: /usr/login/bin/monitoring.sh
 
 Static Ip
 
