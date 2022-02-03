@@ -20,7 +20,7 @@ Last_Boot=$(who -b | awk '{print$3,$4}')
 LVM=$(lsblk | grep 'lvm' | wc -l)
 LVM_use=$(if [ $LVM -eq 0 ]; then echo no; else echo yes; fi)
 
-Connexions_TCP=$(cat /proc/net/sockstat | awk 'NR==2 {print$ 3}')
+Connexions_TCP=$(cat /proc/net/sockstat | awk 'NR==2 {print $3}')
 
 User_log=$(users | wc -w)
 
